@@ -85,7 +85,7 @@ def download_stigs(app, local_file, force):
 
 @main.command()
 @click.pass_obj
-def seedcontroldata(app):
+def seed_control_data(app):
     with app.app_context():
         controls_json = open('{}/800-53r4.json'.format(FIXTURE_DIR))
         controls = json.load(controls_json)

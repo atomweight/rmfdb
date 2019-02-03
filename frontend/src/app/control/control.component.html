@@ -6,13 +6,15 @@
         </mat-card-title>
       <mat-card-content>
         <p>{{ control.text }}</p>
-        <p>Guidance:</p>
-        <textarea
-          cdkTextareaAutosize
-          class="full-width"
-          disabled
-        >{{ control.guidance }}
-        </textarea>
+        <ng-container *ngIf="control.guidance">
+          <p>Guidance:</p>
+          <textarea
+            cdkTextareaAutosize
+            class="full-width"
+            disabled
+          >{{ control.guidance }}
+          </textarea>
+        </ng-container>
         <p>Confidentiality Impact Threshold:
           <mat-chip
             [class.impact-low]="control.confidentiality_threshold == 'LOW'"
@@ -51,7 +53,7 @@
 </div>
 
 <ng-template #loading>
-  <div>
+  <div class="loading">
     <mat-spinner></mat-spinner> Loading...
   </div>
 </ng-template>

@@ -10,6 +10,7 @@ from rmfdb.web.controls.schema import (
     ccis_schema,
     controls_schema,
 )
+from rmfdb.web.middleware import cache
 from rmfdb.web.stigs.models import Rule, Stig
 from rmfdb.web.stigs.schema import (
     rules_schema,
@@ -25,6 +26,7 @@ search = flask.Blueprint('search', __name__)
 
 class SearchView(MethodView):
 
+    @cache.cached(timeout=86400)
     @use_args({
         'query': fields.Str(required=True),
     })

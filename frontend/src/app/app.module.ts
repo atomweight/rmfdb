@@ -19,13 +19,14 @@ import { MatToolbarModule,
          MatProgressSpinnerModule,
          MatChipsModule,
          MatTabsModule,
-         MatBadgeModule } from '@angular/material';
+         MatBadgeModule,
+         MatTooltipModule } from '@angular/material';
 import { MomentModule } from 'ngx-moment';
 import { TruncateModule } from 'ng2-truncate';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routes';
-import { HomeComponent } from './home/home.component';
+import { SearchComponent } from './search/search.component';
 import { StigComponent } from './stig/stig.component';
 import { TimeagoComponent } from './timeago/timeago.component';
 import { RuleComponent } from './rule/rule.component';
@@ -40,7 +41,7 @@ import { CciComponent } from './cci/cci.component';
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
+    SearchComponent,
     StigComponent,
     TimeagoComponent,
     RuleComponent,
@@ -75,6 +76,7 @@ import { CciComponent } from './cci/cci.component';
     MatChipsModule,
     MatTabsModule,
     MatBadgeModule,
+    MatTooltipModule,
     MomentModule,
     TruncateModule,
     AppRoutingModule

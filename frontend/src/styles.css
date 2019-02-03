@@ -42,3 +42,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     pointer-events: none;
     transition: opacity .2s cubic-bezier(.35,0,.25,1);
 }
+
+mat-spinner {
+    margin:0 auto;
+}
+
+div .loading {
+    text-align: center;
+}

@@ -1,10 +1,23 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <span routerLink="/home">rmfdb</span>
+    <span routerLink="/search">rmfdb</span>
     <span class='fill-remaining-space'></span>
-    <a routerLink="/home">
-      <button mat-icon-button color="accent">
-        <mat-icon aria-label="Home">home</mat-icon>
+    <a routerLink="/search">
+      <button
+        mat-icon-button
+        color="accent"
+        matTooltip="Search"
+      >
+        <mat-icon aria-label="Search">search</mat-icon>
+      </button>
+    </a>
+    <a href="https://github.com/atomweight/rmfdb">
+      <button
+        mat-icon-button
+        color="accent"
+        matTooltip="View GitHub"
+      >
+        <i class="icon ion-logo-github" aria-label="GitHub"></i>
       </button>
     </a>
   </mat-toolbar-row>
@@ -30,7 +43,7 @@
 </footer>
 
 <ng-template #loading>
-  <div>
+  <div class="loading">
     <mat-spinner></mat-spinner> Loading...
   </div>
 </ng-template>

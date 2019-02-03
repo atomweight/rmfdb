@@ -23,6 +23,7 @@ lxml = "*"
 webargs = "*"
 deepdiff = "*"
 sqlalchemy-searchable = "*"
+flask-caching = "*"
 
 [dev-packages]
 

@@ -5,6 +5,7 @@ from flask.views import MethodView
 from webargs import fields
 from webargs.flaskparser import use_args
 
+from rmfdb.web.middleware import cache
 from rmfdb.web.stigs.models import Rule, Stig
 from rmfdb.web.stigs.schema import (
     rule_schema,
@@ -23,6 +24,7 @@ stigs = flask.Blueprint('stigs', __name__)
 
 class StigsView(MethodView):
 
+    @cache.cached(timeout=86400)
     @use_args({
         'page': fields.Int(missing=0),
         'pageSize': fields.Int(missing=5)
@@ -40,6 +42,7 @@ class StigsView(MethodView):
 
 class StigVersionsView(MethodView):
 
+    @cache.cached(timeout=86400)
     def get(self, id):
         stig = Stig.query.filter_by(id=id).first_or_404()
         stig_versions = Stig.query.filter_by(name=stig.name).order_by(
@@ -49,6 +52,7 @@ class StigVersionsView(MethodView):
 
 class StigView(MethodView):
 
+    @cache.cached(timeout=86400)
     def get(self, id):
         stig = Stig.query.filter_by(id=id).first_or_404()
         return stig_schema.jsonify(stig)
@@ -56,6 +60,7 @@ class StigView(MethodView):
 
 class RuleView(MethodView):
 
+    @cache.cached(timeout=86400)
     def get(self, id):
         rule = Rule.query.filter_by(full_rule_id=id).first_or_404()
         return rule_schema.jsonify(rule)
@@ -63,6 +68,7 @@ class RuleView(MethodView):
 
 class RuleVersionsView(MethodView):
 
+    @cache.cached(timeout=86400)
     def get(self, rule_id):
         rule_versions = Rule.query.filter_by(rule_id=rule_id).all()
         return rules_schema.jsonify(rule_versions)

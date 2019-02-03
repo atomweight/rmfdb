@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 
+from flask_caching import Cache
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import flask_marshmallow
@@ -8,6 +9,7 @@ import flask_sqlalchemy
 import flask_talisman
 
 
+cache = Cache()
 db = flask_sqlalchemy.SQLAlchemy()
 limiter = Limiter(key_func=get_remote_address)
 ma = flask_marshmallow.Marshmallow()

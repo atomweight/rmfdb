@@ -24,6 +24,7 @@ default_config = {
     'DEBUG': False,
     'SECRET_KEY': binascii.hexlify(os.urandom(24)).decode('utf-8'),
     'SQLALCHEMY_DATABASE_URI': 'sqlite:///:memory:',
+    'CACHE_TYPE': 'simple',
 }
 
 
@@ -55,6 +56,7 @@ def create_app(config_path=None, name=None):
     init_handlers(app)
 
     # middleware
+    middleware.cache.init_app(app)
     middleware.db.init_app(app)
     middleware.limiter.init_app(app)
     middleware.ma.init_app(app)

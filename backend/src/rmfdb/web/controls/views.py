@@ -11,6 +11,7 @@ from rmfdb.web.controls.schema import (
     control_schema,
     controls_schema,
 )
+from rmfdb.web.middleware import cache
 from rmfdb.web.stigs.schema import cci_rules_schema
 
 
@@ -23,6 +24,7 @@ controls = flask.Blueprint('controls', __name__)
 
 class ControlsView(MethodView):
 
+    @cache.cached(timeout=86400)
     @use_args({
         'page': fields.Int(missing=0),
         'pageSize': fields.Int(missing=5)
@@ -40,6 +42,7 @@ class ControlsView(MethodView):
 
 class ControlView(MethodView):
 
+    @cache.cached(timeout=86400)
     def get(self, ctrl_id):
         control = Control.query.filter_by(control_id=ctrl_id).first_or_404()
         return control_schema.jsonify(control)
@@ -47,6 +50,7 @@ class ControlView(MethodView):
 
 class CciView(MethodView):
 
+    @cache.cached(timeout=86400)
     def get(self, cci_id):
         cci = Cci.query.filter_by(cci_id=cci_id).first_or_404()
         return cci_schema.jsonify(cci)
@@ -54,6 +58,7 @@ class CciView(MethodView):
 
 class CciRulesView(MethodView):
 
+    @cache.cached(timeout=86400)
     def get(self, cci_id):
         cci = Cci.query.filter_by(cci_id=cci_id).first_or_404()
         return flask.jsonify(
