@@ -1,0 +1,17 @@
+.mat-column-full_rule_id {
+  word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 8% !important;
+    width: 8% !important;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.mat-column-rule_title {
+  word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 60% !important;
+    width: 60% !important;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}

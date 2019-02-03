@@ -1,0 +1,14 @@
+global-exclude *.py[cod]
+global-exclude __pycache__
+
+graft docs
+graft src
+graft tests
+
+include .editorconfig
+
+include AUTHORS
+include CHANGELOG.rst
+include LICENSE
+include MANIFEST.in
+include README.rst

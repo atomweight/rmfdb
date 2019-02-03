@@ -1,0 +1,30 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "*"
+flask-limiter = "*"
+flask-marshmallow = "*"
+flask-migrate = "*"
+flask-sqlalchemy = "*"
+flask-talisman = "*"
+whoosh = "*"
+marshmallow-sqlalchemy = "*"
+blinker = "*"
+sqlalchemy-utils = "*"
+"psycopg2" = "*"
+"psycopg2-binary" = "*"
+marshmallow-enum = "*"
+defusedxml = "*"
+requests = "*"
+lxml = "*"
+webargs = "*"
+deepdiff = "*"
+sqlalchemy-searchable = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.6"

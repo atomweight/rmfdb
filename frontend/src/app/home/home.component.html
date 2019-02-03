@@ -1,0 +1,207 @@
+<div class="mat-elevation-z8">
+  <mat-card>
+    <mat-card-title>Search all STIGs, Rules, Controls, etc.</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Enter search term" formControlName="query">
+          <mat-error *ngIf="searchForm.get('query').errors">
+            Please enter a valid search query
+          </mat-error>
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+<mat-divider></mat-divider>
+<div class="container"
+   fxLayout
+   fxLayout.xs="column"
+   fxLayoutAlign="center"
+   fxLayoutGap="10px"
+   fxLayoutGap.xs="0"
+  >
+  <ng-container *ngIf="!hasSearched; else results">
+    <div fxFlex="50%">
+      <div class="mat-elevation-z8">
+        <app-stigs></app-stigs>
+      </div>
+    </div>
+    <div fxFlex="50%">
+      <div class="mat-elevation-z8">
+        <app-controls></app-controls>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<ng-template #results>
+  <div fxFlex="100%">
+    <div class="mat-elevation-z8">
+      <mat-card>
+        <mat-card-title>Search Results</mat-card-title>
+        <mat-card-content>
+          <ng-container *ngIf="searchResults; else loading">
+            <mat-tab-group
+              *ngIf="searchResults.stigs.length || searchResults.rules.length || searchResults.controls.length || searchResults.ccis.length; else noResults"
+            >
+              <mat-tab *ngIf="searchResults.stigs.length">
+                <ng-template matTabLabel>
+                  <span matBadge="{{ searchResults.stigs.length }}" matBadgeOverlap="false">STIGs</span>
+                </ng-template>
+                <table mat-table class="full-width" [dataSource]="stigsDataSource">
+                  <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Name</th>
+                    <td mat-cell *matCellDef="let stig">
+                    <a [routerLink]="['/stigs', stig.id]">
+                      {{stig.name}}
+                    </a>
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="version">
+                    <th mat-header-cell *matHeaderCellDef> Version </th>
+                    <td mat-cell *matCellDef="let stig"> {{ stig.version }} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="release">
+                    <th mat-header-cell *matHeaderCellDef> Release </th>
+                    <td mat-cell *matCellDef="let stig"> {{ stig.release }} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="release_date">
+                    <th mat-header-cell *matHeaderCellDef> Release Date </th>
+                    <td mat-cell *matCellDef="let stig">
+                      <app-timeago [dateInput]="stig.release_date"></app-timeago>
+                    </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="stigsDisplayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: stigsDisplayedColumns;"></tr>
+                </table>
+                <mat-paginator
+                  #stigsPaginator
+                  showFirstLastButtons
+                  [pageSize]="5"
+                  [pageSizeOptions]="[5, 10, 25, 100]">
+                </mat-paginator>
+              </mat-tab>
+              <mat-tab *ngIf="searchResults.rules.length">
+                <ng-template matTabLabel>
+                  <span matBadge="{{ searchResults.rules.length }}" matBadgeOverlap="false">STIG Rules</span>
+                </ng-template>
+                <table mat-table class="full-width" [dataSource]="rulesDataSource">
+                  <ng-container matColumnDef="full_rule_id">
+                    <th mat-header-cell *matHeaderCellDef> Rule ID</th>
+                    <td mat-cell *matCellDef="let rule">
+                    <a [routerLink]="['/rules', rule.full_rule_id]">
+                      {{ rule.full_rule_id }}
+                      ({{ rule.group_id }})
+                    </a>
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="rule_title">
+                    <th mat-header-cell *matHeaderCellDef> Title </th>
+                    <td mat-cell *matCellDef="let rule"> {{ rule.rule_title }} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="check_content">
+                    <th mat-header-cell *matHeaderCellDef> Check Content </th>
+                    <td mat-cell *matCellDef="let rule"> {{ rule.check_content | truncate : 150 : "..." }} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="fix_text">
+                    <th mat-header-cell *matHeaderCellDef> Fix Text </th>
+                    <td mat-cell *matCellDef="let rule"> {{ rule.fix_text | truncate : 150 : "..." }} </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="rulesDisplayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: rulesDisplayedColumns;"></tr>
+                </table>
+                <mat-paginator
+                  #rulesPaginator
+                  showFirstLastButtons
+                  [pageSize]="5"
+                  [pageSizeOptions]="[5, 10, 25, 100]">
+                </mat-paginator>
+              </mat-tab>
+              <mat-tab *ngIf="searchResults.controls.length">
+                <ng-template matTabLabel>
+                  <span matBadge="{{ searchResults.controls.length }}" matBadgeOverlap="false">Controls</span>
+                </ng-template>
+                <table mat-table class="full-width" [dataSource]="controlsDataSource">
+                  <ng-container matColumnDef="control_id">
+                    <th mat-header-cell *matHeaderCellDef> ID</th>
+                    <td mat-cell *matCellDef="let control">
+                    <a [routerLink]="['/controls', control.control_id]">
+                      {{ control.control_id }}
+                    </a>
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Name </th>
+                    <td mat-cell *matCellDef="let control"> {{ control.name }} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="text">
+                    <th mat-header-cell *matHeaderCellDef> Text </th>
+                    <td mat-cell *matCellDef="let control"> {{ control.text | truncate : 150 : "..." }} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="guidance">
+                    <th mat-header-cell *matHeaderCellDef> Guidance </th>
+                    <td mat-cell *matCellDef="let control"> {{ control.guidance | truncate : 150 : "..." }} </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="controlsDisplayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: controlsDisplayedColumns;"></tr>
+                </table>
+                <mat-paginator
+                  #controlsPaginator
+                  showFirstLastButtons
+                  [pageSize]="5"
+                  [pageSizeOptions]="[5, 10, 25, 100]">
+                </mat-paginator>
+              </mat-tab>
+              <mat-tab *ngIf="searchResults.ccis.length">
+                <ng-template matTabLabel>
+                  <span matBadge="{{ searchResults.ccis.length }}" matBadgeOverlap="false">CCIs</span>
+                </ng-template>
+                <table mat-table class="full-width" [dataSource]="ccisDataSource">
+                  <ng-container matColumnDef="cci_id">
+                    <th mat-header-cell *matHeaderCellDef> ID</th>
+                    <td mat-cell *matCellDef="let cci">
+                    <a [routerLink]="['/ccis', cci.cci_id]">
+                      {{ cci.cci_id }}
+                    </a>
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="text">
+                    <th mat-header-cell *matHeaderCellDef> Text </th>
+                    <td mat-cell *matCellDef="let cci"> {{ cci.text | truncate : 150 : "..." }} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="org_guidance">
+                    <th mat-header-cell *matHeaderCellDef> Org Guidance </th>
+                    <td mat-cell *matCellDef="let cci"> {{ cci.org_guidance | truncate : 150 : "..." }} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="auditor_guidance">
+                    <th mat-header-cell *matHeaderCellDef> Auditor Guidance </th>
+                    <td mat-cell *matCellDef="let cci"> {{ cci.auditor_guidance | truncate : 150 : "..." }} </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="ccisDisplayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: ccisDisplayedColumns;"></tr>
+                </table>
+                <mat-paginator
+                  #ccisPaginator
+                  showFirstLastButtons
+                  [pageSize]="5"
+                  [pageSizeOptions]="[5, 10, 25, 100]">
+                </mat-paginator>
+              </mat-tab>
+            </mat-tab-group>
+          </ng-container>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #loading>
+  <div>
+    <mat-spinner></mat-spinner> Loading...
+  </div>
+</ng-template>
+
+<ng-template #noResults>
+  <p>No search results exist.</p>
+</ng-template>

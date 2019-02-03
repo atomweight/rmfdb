@@ -1,0 +1,29 @@
+[flake8]
+application-import-names = rmfdb
+exclude =
+  *.egg-info,
+  *.pyc,
+  .cache,
+  .eggs,
+  .git,
+  .tox,
+  __pycache__,
+  build,
+  dist,
+  docs/src/conf.py,
+  src/stubs,
+  tests
+ignore =
+  D401,
+  D403,
+  FI10,
+  FI12,
+  FI13,
+  FI14,
+  FI15,
+  FI16,
+  FI17,
+  FI51,
+  H301
+import-order-style = google
+max-complexity = 15

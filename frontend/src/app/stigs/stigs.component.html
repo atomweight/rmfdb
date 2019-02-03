@@ -1,0 +1,39 @@
+<mat-card>
+  <mat-card-title>Recently added STIGs</mat-card-title>
+  <mat-card-content>
+    <table mat-table class="full-width" [dataSource]="stigsDataSource">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name</th>
+        <td mat-cell *matCellDef="let stig">
+        <a [routerLink]="['/stigs', stig.id]">
+          {{stig.name}}
+        </a>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="version">
+        <th mat-header-cell *matHeaderCellDef> Version </th>
+        <td mat-cell *matCellDef="let stig"> {{stig.version}} </td>
+      </ng-container>
+      <ng-container matColumnDef="release">
+        <th mat-header-cell *matHeaderCellDef> Release </th>
+        <td mat-cell *matCellDef="let stig"> {{stig.release}} </td>
+      </ng-container>
+      <ng-container matColumnDef="release_date">
+        <th mat-header-cell *matHeaderCellDef> Release Date </th>
+        <td mat-cell *matCellDef="let stig">
+          <app-timeago [dateInput]="stig.release_date"></app-timeago>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <div class="spinner-container" *ngIf="stigsDataSource.loading$ | async">
+      <mat-spinner></mat-spinner>
+    </div>
+    <mat-paginator
+      showFirstLastButtons
+      [pageSize]="5"
+      [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+  </mat-card-content>
+</mat-card>

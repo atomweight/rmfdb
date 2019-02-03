@@ -1,0 +1,12 @@
+.impact-low {
+    color: white;
+    background: green;
+}
+.impact-medium {
+    color: white;
+    background: orange;
+}
+.impact-high {
+    color: white;
+    background: red;
+}

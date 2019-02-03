@@ -1,0 +1,23 @@
+<mat-card>
+  <mat-card-title>
+    <a [routerLink]="['/ccis', cci.cci_id]">{{ cci.cci_id }}</a>
+    </mat-card-title>
+  <mat-card-content>
+    <p>{{ cci.text }}</p>
+    <p>Assessment Procedure: {{ cci.ap_acronym }}</p>
+    <p>Organization Guidance:</p>
+    <textarea
+      cdkTextareaAutosize
+      class="full-width"
+      disabled
+    >{{ cci.org_guidance }}
+    </textarea>
+    <p>Auditor Guidance:</p>
+    <textarea
+      cdkTextareaAutosize
+      class="full-width"
+      disabled
+    >{{ cci.auditor_guidance }}
+    </textarea>
+  </mat-card-content>
+</mat-card>

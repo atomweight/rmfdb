@@ -1,0 +1,14 @@
+.documentable-yes {
+    color: white;
+    background: green;
+}
+.documentable-no {
+    color: white;
+    background: red;
+}
+.metadataTable {
+    text-align: top;
+}
+.metadataTable th {
+    text-align: top;
+}

@@ -1,0 +1,16 @@
+.severity-info {
+    color: white;
+    background: blue;
+}
+.severity-low {
+    color: white;
+    background: green;
+}
+.severity-medium {
+    color: white;
+    background: orange;
+}
+.severity-high {
+    color: white;
+    background: red;
+}

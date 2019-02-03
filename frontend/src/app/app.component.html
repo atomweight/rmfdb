@@ -1,0 +1,36 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span routerLink="/home">rmfdb</span>
+    <span class='fill-remaining-space'></span>
+    <a routerLink="/home">
+      <button mat-icon-button color="accent">
+        <mat-icon aria-label="Home">home</mat-icon>
+      </button>
+    </a>
+  </mat-toolbar-row>
+</mat-toolbar>
+<main>
+  <div class="container"
+       fxLayout
+       fxLayout.xs="column"
+       fxLayoutAlign="center"
+       fxLayoutGap="10px"
+       fxLayoutGap.xs="0">
+    <div fxFlex="5%"></div>
+    <div fxFlex="5%" fxFlexOrder="3"></div>
+    <div fxFlex>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</main>
+<footer>
+  <span
+    *ngIf="version$ | async as version; else loading">rmfdb version {{ version.version }} | Content last updated {{ version.lastUpdated | amTimeAgo }}
+  </span>
+</footer>
+
+<ng-template #loading>
+  <div>
+    <mat-spinner></mat-spinner> Loading...
+  </div>
+</ng-template>

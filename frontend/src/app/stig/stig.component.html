@@ -1,0 +1,38 @@
+<div *ngIf="stig$ | async as stig; else loading">
+  <div class="mat-elevation-z8">
+    <mat-card>
+      <mat-card-title>
+        {{ stig.name }} - Version {{ stig.version }}, Release {{ stig.release }}
+        </mat-card-title>
+      <mat-card-content>
+        <p>{{ stig.description }}</p>
+        Released <app-timeago [dateInput]="stig.release_date"></app-timeago>
+        <div *ngIf="stigVersions$ | async as stigVersions; else loading">
+          <div *ngIf="stigVersions.length">
+            <p>Other Versions:</p>
+            <mat-list>
+              <mat-list-item *ngFor="let stigVersion of stigVersions">
+                <a
+                  [routerLink]="['/stigs', stigVersion.id]"
+                >{{ stigVersion.name }} V{{ stigVersion.version }} R{{ stigVersion.release }}
+                </a><span> - Released <app-timeago [dateInput]="stigVersion.release_date"></app-timeago></span>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+            </mat-list>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="mat-elevation-z8" *ngFor="let rule of stig.rules">
+    <app-rule-template [rule]="rule"></app-rule-template>
+    <mat-divider></mat-divider>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div>
+    <mat-spinner></mat-spinner> Loading...
+  </div>
+</ng-template>

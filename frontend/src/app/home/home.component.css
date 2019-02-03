@@ -1,0 +1,35 @@
+.mat-column-full_rule_id {
+  word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 8% !important;
+    width: 8% !important;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.mat-column-rule_title {
+  word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 25% !important;
+    width: 25% !important;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.mat-column-control_id {
+  word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 6% !important;
+    width: 6% !important;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.mat-column-cci_id {
+  word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 7% !important;
+    width: 7% !important;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}

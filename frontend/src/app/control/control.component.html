@@ -1,0 +1,57 @@
+<div *ngIf="control$ | async as control; else loading">
+  <div class="mat-elevation-z8">
+    <mat-card>
+      <mat-card-title>
+        {{ control.control_id }} - {{ control.name }}
+        </mat-card-title>
+      <mat-card-content>
+        <p>{{ control.text }}</p>
+        <p>Guidance:</p>
+        <textarea
+          cdkTextareaAutosize
+          class="full-width"
+          disabled
+        >{{ control.guidance }}
+        </textarea>
+        <p>Confidentiality Impact Threshold:
+          <mat-chip
+            [class.impact-low]="control.confidentiality_threshold == 'LOW'"
+            [class.impact-medium]="control.confidentiality_threshold == 'MODERATE'"
+            [class.impact-high]="control.confidentiality_threshold == 'HIGH'"
+          >
+            {{ control.confidentiality_threshold }}
+          </mat-chip>
+        </p>
+        <p>Integrity Impact Threshold:
+          <mat-chip
+            [class.impact-low]="control.integrity_threshold == 'LOW'"
+            [class.impact-medium]="control.integrity_threshold == 'MODERATE'"
+            [class.impact-high]="control.integrity_threshold == 'HIGH'"
+          >
+            {{ control.integrity_threshold }}
+          </mat-chip>
+        </p>
+        <p>Availability Impact Threshold:
+          <mat-chip
+            [class.impact-low]="control.availability_threshold == 'LOW'"
+            [class.impact-medium]="control.availability_threshold == 'MODERATE'"
+            [class.impact-high]="control.availability_threshold == 'HIGH'"
+          >
+            {{ control.availability_threshold }}
+          </mat-chip>
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="mat-elevation-z8" *ngFor="let cci of control.ccis">
+    <app-cci-template [cci]="cci"></app-cci-template>
+    <mat-divider></mat-divider>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div>
+    <mat-spinner></mat-spinner> Loading...
+  </div>
+</ng-template>

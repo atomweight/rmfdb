@@ -1,0 +1,70 @@
+<div class="container"
+   fxLayout
+   fxLayout.xs="column"
+   fxLayoutAlign="center"
+   fxLayoutGap="10px"
+   fxLayoutGap.xs="0"
+   *ngIf="rule$ | async as rule; else loading">
+  <div fxFlex="65%">
+    <div class="mat-elevation-z8">
+      <app-rule-template [rule]="rule"></app-rule-template>
+    </div>
+  </div>
+  <div fxFlex="35%">
+    <div class="mat-elevation-z8">
+      <app-rule-metadata [metadata]="rule.rule_metadata"></app-rule-metadata>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="mat-elevation-z8">
+      <mat-card>
+        <mat-card-title>STIGs</mat-card-title>
+        <mat-card-content>
+          <mat-list>
+            <div *ngFor="let stig of rule.stigs">
+              <mat-list-item>
+                <a
+                  [routerLink]="['/stigs', stig.id]"
+                >{{ stig.name }} V{{ stig.version }} R{{ stig.release }}
+                </a><span> - Released <app-timeago [dateInput]="stig.release_date"></app-timeago></span>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+            </div>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="mat-elevation-z8">
+      <mat-card>
+        <mat-card-title>Other Versions</mat-card-title>
+        <mat-card-content>
+          <div *ngIf="ruleVersions$ | async as ruleVersions; else loading">
+            <div *ngIf="ruleVersions.length > 1; else noVersions">
+              <mat-list>
+                <div *ngFor="let ruleVersion of ruleVersions">
+                  <mat-list-item *ngIf="rule.id != ruleVersion.id">
+                    <a
+                      [routerLink]="['/rules', ruleVersion.full_rule_id]"
+                    >{{ ruleVersion.full_rule_id }}
+                    </a>
+                  </mat-list-item>
+                </div>
+                <mat-divider></mat-divider>
+              </mat-list>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div>
+    <mat-spinner></mat-spinner> Loading...
+  </div>
+</ng-template>
+
+<ng-template #noVersions>
+  <em>No other rule versions exist.</em>
+</ng-template>
