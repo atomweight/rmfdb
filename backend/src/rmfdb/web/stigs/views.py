@@ -24,7 +24,6 @@ stigs = flask.Blueprint('stigs', __name__)
 
 class StigsView(MethodView):
 
-    @cache.cached(timeout=86400)
     @use_args({
         'page': fields.Int(missing=0),
         'pageSize': fields.Int(missing=5)

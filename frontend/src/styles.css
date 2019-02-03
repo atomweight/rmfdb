@@ -50,3 +50,11 @@ mat-spinner {
 div .loading {
     text-align: center;
 }
+
+.vertTable {
+    text-align: left;
+}
+.vertTable th {
+    text-align: left;
+    width: 10%;
+}

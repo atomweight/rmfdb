@@ -3,21 +3,37 @@
     <a [routerLink]="['/ccis', cci.cci_id]">{{ cci.cci_id }}</a>
     </mat-card-title>
   <mat-card-content>
-    <p>{{ cci.text }}</p>
-    <p>Assessment Procedure: {{ cci.ap_acronym }}</p>
-    <p>Organization Guidance:</p>
-    <textarea
-      cdkTextareaAutosize
-      class="full-width"
-      disabled
-    >{{ cci.org_guidance }}
-    </textarea>
-    <p>Auditor Guidance:</p>
-    <textarea
-      cdkTextareaAutosize
-      class="full-width"
-      disabled
-    >{{ cci.auditor_guidance }}
-    </textarea>
+    <table class="vertTable">
+      <tr>
+        <th>Description</th>
+        <td>{{ cci.text }}</td>
+      </tr>
+      <tr>
+        <th>Assessment Procedure</th>
+        <td>{{ cci.ap_acronym }}</td>
+      </tr>
+      <tr *ngIf="cci.org_guidance">
+        <th>Organization Guidance</th>
+        <td>
+          <textarea
+            cdkTextareaAutosize
+            class="full-width"
+            disabled
+          >{{ cci.org_guidance }}
+          </textarea>
+        </td>
+      </tr>
+      <tr *ngIf="cci.auditor_guidance">
+        <th>Auditor Guidance</th>
+        <td>
+          <textarea
+            cdkTextareaAutosize
+            class="full-width"
+            disabled
+          >{{ cci.auditor_guidance }}
+          </textarea>
+        </td>
+      </tr>
+    </table>
   </mat-card-content>
 </mat-card>

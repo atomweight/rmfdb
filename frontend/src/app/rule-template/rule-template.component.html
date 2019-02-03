@@ -3,49 +3,74 @@
     <a [routerLink]="['/rules', rule.full_rule_id]">{{ rule.full_rule_id }} ({{ rule.group_id }}) - {{ rule.rule_title }}</a>
     </mat-card-title>
   <mat-card-content>
-    <p>Group Title: {{ rule.group_title }}</p>
-    <p>Severity:
-      <mat-chip
-        [class.severity-info]="rule.rule_severity == 'info'"
-        [class.severity-low]="rule.rule_severity == 'low'"
-        [class.severity-medium]="rule.rule_severity == 'medium'"
-        [class.severity-high]="rule.rule_severity == 'high'"
-      >
-        {{ rule.rule_severity }}
-      </mat-chip>
-    </p>
-    <p *ngIf="rule.rule_metadata.VulnDiscussion">{{ rule.rule_metadata.VulnDiscussion }}</p>
-    <mat-chip-list
-      *ngIf="rule.cves.length"
-    >
-      <mat-chip color="accent" *ngFor="let cve of rule.cves">
-        {{ cve }}
-      </mat-chip>
-    </mat-chip-list>
-    <mat-chip-list
-      *ngIf="rule.ccis.length"
-    >
-      <mat-chip
-        color="accent"
-        *ngFor="let cci of rule.ccis"
-        [routerLink]="['/ccis', cci.cci_id]"
-      >
-        {{ cci.cci_id }}
-      </mat-chip>
-    </mat-chip-list>
-    <p>Check Content:</p>
-    <textarea
-      cdkTextareaAutosize
-      class="full-width"
-      disabled
-    >{{ rule.check_content }}
-    </textarea>
-    <p>Fix Text:</p>
-    <textarea
-      cdkTextareaAutosize
-      class="full-width"
-      disabled
-    >{{ rule.check_content }}
-    </textarea>
+    <table class="vertTable">
+      <tr>
+        <th>Group Title</th>
+        <td>{{ rule.group_title }}</td>
+      </tr>
+      <tr>
+        <th>Severity</th>
+        <td>
+          <mat-chip
+            [class.severity-info]="rule.rule_severity == 'info'"
+            [class.severity-low]="rule.rule_severity == 'low'"
+            [class.severity-medium]="rule.rule_severity == 'medium'"
+            [class.severity-high]="rule.rule_severity == 'high'"
+          >
+            {{ rule.rule_severity }}
+          </mat-chip>
+        </td>
+      </tr>
+      <tr *ngIf="rule.rule_metadata.VulnDiscussion">
+        <th>Discussion</th>
+        <td>{{ rule.rule_metadata.VulnDiscussion }}</td>
+      </tr>
+      <tr *ngIf="rule.cves.length">
+        <th>CVEs</th>
+        <td>
+          <mat-chip-list>
+            <mat-chip color="accent" *ngFor="let cve of rule.cves">
+              {{ cve }}
+            </mat-chip>
+          </mat-chip-list>
+        </td>
+      </tr>
+      <tr *ngIf="rule.ccis.length">
+        <th>CCIs</th>
+        <td>
+          <mat-chip-list>
+            <mat-chip
+              color="accent"
+              *ngFor="let cci of rule.ccis"
+              [routerLink]="['/ccis', cci.cci_id]"
+            >
+              {{ cci.cci_id }}
+            </mat-chip>
+          </mat-chip-list>
+        </td>
+      </tr>
+      <tr *ngIf="rule.check_content">
+        <th>Check Content</th>
+        <td>
+          <textarea
+            cdkTextareaAutosize
+            class="full-width"
+            disabled
+          >{{ rule.check_content }}
+          </textarea>
+        </td>
+      </tr>
+      <tr *ngIf="rule.fix_text">
+        <th>Fix Text</th>
+        <td>
+          <textarea
+            cdkTextareaAutosize
+            class="full-width"
+            disabled
+          >{{ rule.fix_text }}
+          </textarea>
+        </td>
+      </tr>
+    </table>
   </mat-card-content>
 </mat-card>
