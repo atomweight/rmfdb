@@ -1,1 +1,17 @@
+.mat-column-version {
+  word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 10% !important;
+    width: 10% !important;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
 
+.mat-column-release {
+  word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 10% !important;
+    width: 10% !important;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}

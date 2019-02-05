@@ -36,7 +36,7 @@
                 [class.impact-medium]="control.confidentiality_threshold == 'MODERATE'"
                 [class.impact-high]="control.confidentiality_threshold == 'HIGH'"
               >
-                {{ control.confidentiality_threshold }}
+                {{ control.confidentiality_threshold | lowercase }}
               </mat-chip>
             </td>
           </tr>
@@ -48,7 +48,7 @@
                 [class.impact-medium]="control.integrity_threshold == 'MODERATE'"
                 [class.impact-high]="control.integrity_threshold == 'HIGH'"
               >
-                {{ control.integrity_threshold }}
+                {{ control.integrity_threshold | lowercase }}
               </mat-chip>
             </td>
           </tr>
@@ -60,7 +60,7 @@
                 [class.impact-medium]="control.availability_threshold == 'MODERATE'"
                 [class.impact-high]="control.availability_threshold == 'HIGH'"
               >
-                {{ control.availability_threshold }}
+                {{ control.availability_threshold | lowercase }}
               </mat-chip>
             </td>
           </tr>
