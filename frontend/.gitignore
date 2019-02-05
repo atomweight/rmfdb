@@ -9,3 +9,5 @@ typings/
 .idea/
 .DS_Store
 .npmrc
+robots.txt
+sitemap.xml

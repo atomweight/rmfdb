@@ -5,6 +5,8 @@ src/instance
 *.sublime-workspace
 .reqwire.lock
 
+sitemap.xml
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

@@ -5,6 +5,7 @@ import json
 
 import click
 import flask
+from jinja2 import Environment
 from lxml import html
 import pkg_resources
 import requests
@@ -14,7 +15,7 @@ from rmfdb.parser import process_stig_zips
 import rmfdb.web.app
 from rmfdb.web.controls.models import Cci, Control, LowModHigh
 from rmfdb.web.middleware import db
-from rmfdb.web.stigs.models import StigLibrary
+from rmfdb.web.stigs.models import Rule, Stig, StigLibrary
 
 
 FIXTURE_DIR = pkg_resources.resource_filename('rmfdb', 'fixtures')
@@ -124,3 +125,53 @@ def seed_control_data(app):
                 db.session.rollback()
                 continue
         controls_json.close()
+
+
+@main.command()
+@click.pass_obj
+def generate_sitemap(app):
+    with app.app_context():
+        template = """<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    {% for page in pages %}
+    <url>
+        <loc>{{page['loc']|safe}}</loc>
+        <lastmod>{{page['lastmod']}}</lastmod>
+    </url>
+    {% endfor %}
+</urlset>"""
+        base_url = 'rmfdb.com'
+        models = [Stig, Rule, Control, Cci]
+        pages = []
+        for model in models:
+            items = model.query.all()
+            if model == Stig:
+                resource = 'stigs'
+                id_prop = 'id'
+            elif model == Rule:
+                resource == 'rules'
+                id_prop = 'full_rule_id'
+            elif model == Control:
+                resource = 'controls'
+                id_prop = 'control_id'
+            else:
+                resource = 'ccis'
+                id_prop = 'cci_id'
+            for item in items:
+                pages.append(
+                    {
+                        'loc': 'https://{}/{}/{}'.format(
+                            base_url,
+                            resource,
+                            str(getattr(item, id_prop)).replace(
+                                ' (', '%20%28'
+                            ).replace(
+                                ')', '%29'
+                            )
+                        ),
+                        'lastmod': item.updated_at.isoformat()
+                    }
+                )
+        sitemap = Environment().from_string(template).render(pages=pages)
+        with open('sitemap.xml', 'w') as sitemap_xml:
+            sitemap_xml.write(sitemap)
