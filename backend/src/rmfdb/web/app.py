@@ -61,7 +61,7 @@ def create_app(config_path=None, name=None):
     middleware.limiter.init_app(app)
     middleware.ma.init_app(app)
     middleware.migrate.init_app(app, middleware.db)
-    middleware.talisman.init_app(app)
+    middleware.talisman.init_app(app, force_https=False)
     # fts
     make_searchable(middleware.db.metadata)
     middleware.db.configure_mappers()

@@ -77,7 +77,6 @@ def setup():
         package_data={
             'rmfdb': ['rmfdb/fixtures/*.json'],
         },
-        version='0.0.1',
         zip_safe=False,
     )
 
