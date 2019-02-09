@@ -24,6 +24,7 @@ webargs = "*"
 deepdiff = "*"
 sqlalchemy-searchable = "*"
 flask-caching = "*"
+redis = "*"
 
 [dev-packages]
 
