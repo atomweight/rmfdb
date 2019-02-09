@@ -66,18 +66,18 @@ class CciRulesView(MethodView):
 
 
 controls.add_url_rule(
-    '/controls',
+    '/api/controls',
     view_func=ControlsView.as_view('controls_view'),
     methods=('GET',))
 controls.add_url_rule(
-    '/controls/<string:ctrl_id>',
+    '/api/controls/<string:ctrl_id>',
     view_func=ControlView.as_view('control_view'),
     methods=('GET',))
 controls.add_url_rule(
-    '/ccis/<string:cci_id>',
+    '/api/ccis/<string:cci_id>',
     view_func=CciView.as_view('cci_view'),
     methods=('GET',))
 controls.add_url_rule(
-    '/ccis/<string:cci_id>/rules',
+    '/api/ccis/<string:cci_id>/rules',
     view_func=CciRulesView.as_view('cci_rules_view'),
     methods=('GET',))

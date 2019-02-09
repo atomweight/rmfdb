@@ -27,6 +27,6 @@ class VersionView(flask.views.MethodView):
 
 
 settings.add_url_rule(
-    '/version',
+    '/api/version',
     view_func=VersionView.as_view('version_view'),
     methods=('GET',))

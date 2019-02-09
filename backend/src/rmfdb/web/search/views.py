@@ -43,6 +43,6 @@ class SearchView(MethodView):
 
 
 search.add_url_rule(
-    '/search',
+    '/api/search',
     view_func=SearchView.as_view('search_view'),
     methods=('POST',))

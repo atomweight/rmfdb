@@ -74,22 +74,22 @@ class RuleVersionsView(MethodView):
 
 
 stigs.add_url_rule(
-    '/stigs',
+    '/api/stigs',
     view_func=StigsView.as_view('stigs_view'),
     methods=('GET',))
 stigs.add_url_rule(
-    '/stigs/<string:id>',
+    '/api/stigs/<string:id>',
     view_func=StigView.as_view('stig_view'),
     methods=('GET',))
 stigs.add_url_rule(
-    '/stigs/<string:id>/versions',
+    '/api/stigs/<string:id>/versions',
     view_func=StigVersionsView.as_view('stig_versions_view'),
     methods=('GET',))
 stigs.add_url_rule(
-    '/rules/<string:id>',
+    '/api/rules/<string:id>',
     view_func=RuleView.as_view('rule_view'),
     methods=('GET',))
 stigs.add_url_rule(
-    '/rules/<string:rule_id>/versions',
+    '/api/rules/<string:rule_id>/versions',
     view_func=RuleVersionsView.as_view('rule_versions_view'),
     methods=('GET',))
