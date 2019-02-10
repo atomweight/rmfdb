@@ -120,8 +120,6 @@ def seed_control_data(app):
                     db.session.add(cci_obj)
                     db.session.commit()
             except sqlalchemy.exc.IntegrityError:
-                # flask.current_app.logger.error(
-                #     'Controls have already been seeded!')
                 db.session.rollback()
                 continue
         controls_json.close()
@@ -140,7 +138,11 @@ def generate_sitemap(app):
     </url>
     {% endfor %}
 </urlset>"""
-        base_url = 'rmfdb.com'
+        base_url = flask.current_app.config.get('BASE_URL')
+        if not base_url:
+            flask.current_app.logger.error(
+                'BASE_URL not set in configuration, exiting...')
+            return
         models = [Stig, Rule, Control, Cci]
         pages = []
         for model in models:
