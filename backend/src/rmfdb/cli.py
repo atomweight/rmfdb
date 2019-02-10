@@ -162,7 +162,7 @@ def generate_sitemap(app):
             for item in items:
                 pages.append(
                     {
-                        'loc': 'https://{}/{}/{}'.format(
+                        'loc': '{}/{}/{}'.format(
                             base_url,
                             resource,
                             str(getattr(item, id_prop)).replace(
