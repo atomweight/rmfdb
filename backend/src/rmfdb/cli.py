@@ -171,7 +171,7 @@ def generate_sitemap(app):
                                 ')', '%29'
                             )
                         ),
-                        'lastmod': item.updated_at.isoformat()
+                        'lastmod': item.updated_at.strftime('%Y-%m-%d')
                     }
                 )
         sitemap = Environment().from_string(template).render(pages=pages)
