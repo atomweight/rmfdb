@@ -31,7 +31,10 @@ class StigsView(MethodView):
     def get(self, reqargs):
         page = reqargs.get('page', 0) + 1
         page_size = reqargs.get('pageSize', 5)
-        stigs = Stig.query.order_by(Stig.release_date.desc()).paginate(
+        stigs = Stig.query.order_by(
+            Stig.release_date.desc(),
+            Stig.name,
+        ).paginate(
             page=page, per_page=page_size)
         return flask.jsonify(
             total=stigs.total,

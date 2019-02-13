@@ -24,6 +24,7 @@ class StigLibrary(db.Model):
         nullable=False,
     )
 
+
 class StigQuery(BaseQuery, SearchQueryMixin):
     pass
 
