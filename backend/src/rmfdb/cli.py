@@ -24,6 +24,7 @@ FIXTURE_DIR = pkg_resources.resource_filename('rmfdb', 'fixtures')
 @click.group()
 @click.pass_context
 def main(ctx):
+    """Main entrypoint."""
     ctx.obj = rmfdb.web.app.create_app()
 
 
@@ -32,6 +33,7 @@ def main(ctx):
 @click.option('--force', flag_value=True)
 @click.pass_obj
 def download_stigs(app, local_file, force):
+    """Download STIG Compilation Library."""
     with app.app_context():
         if local_file:
             library_file = open(local_file, 'rb')
@@ -41,8 +43,7 @@ def download_stigs(app, local_file, force):
             flask.current_app.logger.info(
                 'Checking DISA for new masterlist release')
             stig_page = requests.get(
-                'https://iase.disa.mil/stigs/Lists/stigs-masterlist/'
-                'stig-srg-compilation-qtr.aspx')
+                'https://public.cyber.mil/stigs/compilations')
             stig_page_html = html.fromstring(stig_page.content)
             links = stig_page_html.xpath('//a/@href')
             download_library_link = None
@@ -87,6 +88,7 @@ def download_stigs(app, local_file, force):
 @main.command()
 @click.pass_obj
 def seed_control_data(app):
+    """Add NIST 800-53 controls to the database."""
     with app.app_context():
         controls_json = open('{}/800-53r4.json'.format(FIXTURE_DIR))
         controls = json.load(controls_json)
@@ -128,6 +130,7 @@ def seed_control_data(app):
 @main.command()
 @click.pass_obj
 def generate_sitemap(app):
+    """Generate a sitemap.xml file."""
     with app.app_context():
         template = """<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
