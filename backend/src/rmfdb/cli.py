@@ -70,19 +70,16 @@ def download_stigs(app, local_file, force):
                 library_file_hash_string))
         library_result = StigLibrary.query.filter_by(
             hash_value=library_file_hash_string).first()
-        if not library_result:
+        if library_result and not force:
             flask.current_app.logger.info(
-                'This is a new STIG compilation library, '
-                'adding to database...')
-            library = StigLibrary(hash_value=library_file_hash_string)
-            db.session.add(library)
-            db.session.commit()
-        else:
-            if not force:
-                flask.current_app.logger.info(
-                    'This is not a new STIG compilation library, exiting...')
-                return
+                'This is not a new STIG compilation library, exiting...')
+            return
+        flask.current_app.logger.info(
+            'This is a new STIG compilation library, adding to database...')
         process_stig_zips(library_file_content)
+        library = StigLibrary(hash_value=library_file_hash_string)
+        db.session.add(library)
+        db.session.commit()
 
 
 @main.command()
