@@ -14,8 +14,6 @@ whoosh = "*"
 marshmallow-sqlalchemy = "*"
 blinker = "*"
 sqlalchemy-utils = "*"
-"psycopg2" = "*"
-"psycopg2-binary" = "*"
 marshmallow-enum = "*"
 defusedxml = "*"
 requests = "*"
@@ -25,8 +23,9 @@ deepdiff = "*"
 sqlalchemy-searchable = "*"
 flask-caching = "*"
 redis = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.6"
+python_version = "3.7"
