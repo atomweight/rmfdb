@@ -108,6 +108,17 @@
                     <th mat-header-cell *matHeaderCellDef> Fix Text </th>
                     <td mat-cell *matCellDef="let rule"> {{ rule.fix_text | truncate : 150 : "..." }} </td>
                   </ng-container>
+                  <ng-container matColumnDef="stigs">
+                    <th mat-header-cell *matHeaderCellDef> Example STIG </th>
+                    <td mat-cell *matCellDef="let rule">
+                      <ng-container *ngIf="rule.stigs.length; else noStigs">
+                        <a [routerLink]="['/stigs', rule.stigs[0].id]">
+                          {{rule.stigs[0].name}}
+                        </a>
+                      </ng-container>
+                      <ng-template #noStigs><em>No STIGs found.</em></ng-template>
+                    </td>
+                  </ng-container>
                   <tr mat-header-row *matHeaderRowDef="rulesDisplayedColumns"></tr>
                   <tr mat-row *matRowDef="let row; columns: rulesDisplayedColumns;"></tr>
                 </table>

@@ -25,7 +25,7 @@ export class SearchComponent implements OnInit {
   hasSearched: boolean = false;
   searchResults: SearchResponse;
   stigsDisplayedColumns: string[] = ['name', 'version', 'release', 'release_date'];
-  rulesDisplayedColumns: string[] = ['full_rule_id', 'rule_title', 'check_content', 'fix_text'];
+  rulesDisplayedColumns: string[] = ['full_rule_id', 'rule_title', 'check_content', 'fix_text', 'stigs'];
   controlsDisplayedColumns: string[] = ['control_id', 'name', 'text', 'guidance'];
   ccisDisplayedColumns: string[] = ['cci_id', 'text', 'org_guidance', 'auditor_guidance'];
   stigsDataSource: MatTableDataSource<Stig>;

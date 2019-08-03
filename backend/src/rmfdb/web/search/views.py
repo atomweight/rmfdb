@@ -30,8 +30,10 @@ class SearchView(MethodView):
     })
     def post(self, reqargs):
         query = reqargs['query']
-        stig_results = Stig.query.search(query).all()
-        rule_results = Rule.query.search(query).all()
+        stig_results = Stig.query.search(
+            query).order_by(Stig.release_date.desc()).all()
+        rule_results = Rule.query.search(
+            query).order_by(Rule.created_at.desc()).all()
         cci_results = Cci.query.search(query).all()
         ctrl_results = Control.query.search(query).all()
         return flask.jsonify(
