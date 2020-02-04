@@ -32,7 +32,7 @@ def process_stig_zips(library_file_content):
     unzip_location = os.path.join(
         flask.current_app.instance_path, 'stigs-tmp')
     for ffile in library_file.namelist():
-        if '_STIG.zip' in ffile:
+        if '_STIG.zip' in ffile or '_SRG.zip' in ffile:
             flask.current_app.logger.info('Found STIG ZIP "{}"'.format(ffile))
             stig_zip = library_file.extract(ffile, unzip_location)
             stig_zip_file = ZipFile(stig_zip)
